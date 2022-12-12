@@ -2,6 +2,7 @@ let contactList;
 window.addEventListener('DOMContentLoaded',(event) => {
     contactList = getContactDataFromStorage();
     createInnerHtml();
+    localStorage.removeItem('editContact');
 });
 
 const getContactDataFromStorage = () => {
@@ -24,12 +25,21 @@ const createInnerHtml = () => {
         <td>${contact._phone}</td>
         <td>
             <img id="${contact._id}" onclick="remove(this)" alt="delete"
-            src="../assets/icons/delete-black-18dp.svg">
+            src="../icons/delete-black-18dp.svg">
             <img id="${contact._id}" alt="edit" onclick="update(this)"
-            src="../assets/icons/create-black-18dp.svg">
+            src="../icons/create-black-18dp.svg">
         </td>    
     </tr>
     `;
     }
      document.querySelector('#display').innerHTML = innerHtml;
+}
+
+const remove = (node) => {
+    let contact = contactList.find(cdata=> cdata._id==node._id);
+    if(!contact) return;
+    const index = contactList.map(cdata => cdata._id).indexOf(contact._id);
+    contactList.splice(index,1);
+    localStorage.setItem("ContactList",JSON.stringify(contactList));
+    createInnerHtml();
 }

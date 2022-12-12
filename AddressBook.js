@@ -1,39 +1,17 @@
 class Contact{
-
-    get id(){
-        return this._id;
+    get fullName(){
+        return this._fullName;
     }
 
-    set id(id){
-        this._id=id;
-    }
-
-    get firstName(){
-        return this._firstName;
-    }
-
-    set firstName(firstName)
+    set fullName(fullName)
     {
-        let firstNameRegex = RegExp('^[A-Z][a-z]{2,}$')
-        if(firstNameRegex.test(firstName))
-        this._firstName = firstName;
+        let fullNameRegex = RegExp('^[A-Za-z\\s]+$')
+        if(fullNameRegex.test(fullName))
+        this._fullName = fullName;
         else
-        throw 'First Name Invalid'
+        throw 'Name is Invalid'
     }
 
-    get lastName()
-    {
-        return this._lastName;
-    }
-
-    set lastName(lastName)
-    {
-        let lastNameRegex = RegExp('^[A-Z][a-z]{2,}$')
-        if(lastNameRegex.test(lastName))
-        this._lastName = lastName;
-        else
-        throw 'Last Name Invalid'
-    }
 
     get address(){
         return this._address;
@@ -43,7 +21,7 @@ class Contact{
     {
         let words = address.split(" ");
         if(words.length>1){
-            let addressRegex = RegExp('^[A-Za-z0-9]{3,}$');
+            let addressRegex = RegExp('^[#.0-9a-zA-Z\s,-]+$');
             for(const word of words){
                 if(!addressRegex.test(word))
                 throw 'Address Invalid';
@@ -60,12 +38,7 @@ class Contact{
     }
 
     set city(city){
-        let cityRegex = RegExp('^[A-Za-z\\s]{4,}$');
-        if(cityRegex.test(city)){
-            this._city=city;
-        }else{
-            throw "City is invalid"
-        }
+      this._city= city;
     }
 
     get state(){
@@ -73,12 +46,7 @@ class Contact{
     }
 
     set state(state){
-        let stateRegex = RegExp("^[A-Za-z\\s]{4,}$")
-        if(stateRegex.test(state)){
-            this._state = state;
-        }else{
-            throw "state is in valid";
-        }
+       this._state = state;
     }
 
     get zip()
@@ -88,11 +56,12 @@ class Contact{
 
     set zip(zip)
     {
-        let zipRegex = RegExp('^[0-9]{6}$');
-        if(zipRegex.test(zip))
-        this._zip = zip;
-        else
-        throw 'Zip Invalid'
+        let zipRegex = RegExp('^[0-9]{6,}$');
+        if(zipRegex.test(zip)) {
+            this._zip = zip;
+        } else {
+            throw 'Zip Invalid';
+        }
     }
 
     get phone()
@@ -105,16 +74,17 @@ class Contact{
         let phoneRegex1 = RegExp('^[1-9][0-9]{9}$');
         let phoneRegex2 = RegExp('^[0-9]{2}[1-9][0-9]{9}$');
         let phoneRegex3 = RegExp('^[+][0-9]{2}[1-9][0-9]{9}$');
-        if(phoneRegex1.test(phone) || phoneRegex2.test(phone) || phoneRegex3.test(phone))
-        this._phone = phone;
-        else
-        throw 'Phone Number Invalid'
+        if(phoneRegex1.test(phone) || phoneRegex2.test(phone) || phoneRegex3.test(phone)) {
+            this._phone = phone;
+        } else {
+            throw 'Phone Number is Invalid';
+        }
     }
 
     toString()
     {
-        return "Id = "+this.id+", FirstName = "+this.firstName+", LastName = "+this.lastName+", Address = "+this.address+
-                ", City = "+this.city+", State = "+this.state+", Zip = "+this.zip+", Phone = "+this.phone;
+        return "Full Name = "+this._fullName+ ", Address = "+this.address+", City = "+this.city+", State = "+this.state+", Zip = "+this.zip+", Phone = "+this.phone+", Email = "+this.email;
+  
     }
 
 }
